@@ -19,3 +19,4 @@ Route::resource('patients', PatientController::class);
 
 Route::post('users/login', [UserController::class, 'login']);
 Route::get('dashboard', [Dashboard::class, 'index']);
+Route::get('doctors/search/{name}/{speciality}', [DoctorController::class, 'search']);
