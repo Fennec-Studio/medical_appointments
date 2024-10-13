@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MedicalHistory;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,14 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $patients = Patient::all();
+        foreach ($patients as $patient) {
+            $medical_history = MedicalHistory::where('patient_id', $patient->id)->first();
+            $patient->medical_history = $medical_history;
+        }
 
+        return response()->json($patients);
+    }
     /**
      * Show the form for creating a new resource.
      */
