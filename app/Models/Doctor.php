@@ -18,4 +18,15 @@ class Doctor extends Model
         'phone',
         'license',
     ];
+
+
+    public function specialty()
+    {
+        return $this->belongsTo(Speciality::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }
