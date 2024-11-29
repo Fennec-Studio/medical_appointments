@@ -25,13 +25,4 @@ class Appointment extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
-
-    public function getStatusAttribute($value)
-    {
-        return [
-            0 => 'Pending',
-            1 => 'Approved',
-            2 => 'Cancelled'
-        ][$value];
-    }
 }
