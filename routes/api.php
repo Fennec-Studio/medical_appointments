@@ -22,3 +22,6 @@ Route::resource('specialties', SpecialityController::class);
 Route::post('users/login', [UserController::class, 'login']);
 Route::get('dashboard', [Dashboard::class, 'index']);
 Route::get('doctors/search/{name}/{speciality}', [DoctorController::class, 'search']);
+
+
+Route::post('appointments/{id}/status', [AppointmentController::class, 'updateStatus']);

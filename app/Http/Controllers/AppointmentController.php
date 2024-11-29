@@ -10,13 +10,14 @@ use Illuminate\Http\Request;
 class AppointmentController extends Controller
 {
     public function index() {
-        //Ordenadas por status y fecha
         $appointments = Appointment::orderBy('status')->orderBy('date')->get();
         foreach ($appointments as $appointment) {
             $doctor = Doctor::find($appointment->doctor_id);
             $patient = Patient::find($appointment->patient_id);
-            $appointment->doctor = $doctor->first_name . ' ' . $doctor->last_name;
-            $appointment->patient = $patient->first_name . ' ' . $patient->last_name;
+            // $appointment->doctor = $doctor->first_name . ' ' . $doctor->last_name;
+            // $appointment->patient = $patient->first_name . ' ' . $patient->last_name;
+            $appointment->doctor = $doctor;
+            $appointment->patient = $patient;
         }
 
         return response()->json($appointments);
@@ -42,5 +43,12 @@ class AppointmentController extends Controller
         $appointment = Appointment::find($id);
         $appointment->delete();
         return response()->json(['message' => 'Appointment deleted']);
+    }
+
+    public function updateStatus(Request $request, $id) {
+        $appointment = Appointment::find($id);
+        $appointment->status = $request->status;
+        $appointment->save();
+        return response()->json($appointment);
     }
 }
