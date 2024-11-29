@@ -14,8 +14,6 @@ class AppointmentController extends Controller
         foreach ($appointments as $appointment) {
             $doctor = Doctor::find($appointment->doctor_id);
             $patient = Patient::find($appointment->patient_id);
-            // $appointment->doctor = $doctor->first_name . ' ' . $doctor->last_name;
-            // $appointment->patient = $patient->first_name . ' ' . $patient->last_name;
             $appointment->doctor = $doctor;
             $appointment->patient = $patient;
         }

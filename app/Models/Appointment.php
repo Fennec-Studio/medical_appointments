@@ -15,4 +15,23 @@ class Appointment extends Model
         'comments',
         'status'
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return [
+            0 => 'Pending',
+            1 => 'Approved',
+            2 => 'Cancelled'
+        ][$value];
+    }
 }

@@ -59,17 +59,6 @@ class DoctorController extends Controller
     }
 
     public function search($name, $speciality) {
-        // if speciality is 0 then search by name only
-        // if name is null then search by speciality only
-        // if both are not null then search by both
-        // if speciality isnt 0, then search all doctors in that speciality and return them ordered by name
-        // if name isnt null, then search all doctors with that name and return them ordered by name
-        // but order by index of name coincidence in the name of the doctor (the more coincidence, the first)
-        // Example: name = "a", speciality = 0
-        //          return all doctors ordered by name
-        // Example: name = "a", speciality = 1
-        //          return all doctors in speciality 1 ordered by name
-
         if ($speciality == 0) {
             if ($name == null) {
                 $doctors = Doctor::all()->sortBy('first_name');
