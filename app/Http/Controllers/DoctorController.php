@@ -13,6 +13,17 @@ class DoctorController extends Controller
         foreach ($doctors as $doctor) {
             $speciality = Speciality::find($doctor->speciality_id);
             $doctor->speciality = $speciality->name;
+
+            $schedule = [];
+            for ($i = 8; $i < 18; $i++) {
+                $time = $i < 10 ? '0'.$i.':00' : $i.':00';
+                $available = rand(0, 1) == 1 ? true : false;
+                $schedule[] = [
+                    'time' => $time,
+                    'available' => $available
+                ];
+            }
+            $doctor->schedule = $schedule;
         }
         return response()->json($doctors);
     }
