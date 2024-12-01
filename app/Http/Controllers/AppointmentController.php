@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AppointmentController extends Controller
 {
@@ -22,8 +23,16 @@ class AppointmentController extends Controller
     }
 
     public function store(Request $request) {
+        $patient = Patient::where('curp', $request->patient['curp'])->first();
+        $doctor = Doctor::find($request->doctor['id'])->first();
+        if (!$patient) {
+            $patient = Patient::create($request->patient);
+        }
+        $request->merge(['patient_id' => $patient->id]);
+        $request->merge(['doctor_id' => $doctor->id]);
         $appointment = Appointment::create($request->all());
         return response()->json($appointment);
+
     }
 
     public function show($id) {
