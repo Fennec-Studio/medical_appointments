@@ -55,7 +55,7 @@ class AppointmentController extends Controller
     public function updateStatus(Request $request, $id) {
         $appointment = Appointment::find($id);
         $appointment->status = $request->status;
-        $appointment->save();
+        $appointment->update($request->all());
         return response()->json($appointment);
     }
 }
