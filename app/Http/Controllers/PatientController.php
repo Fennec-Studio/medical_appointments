@@ -65,9 +65,23 @@ class PatientController extends Controller
         $patient->email = $request->email;
         $patient->phone = $request->phone;
         $patient->address = $request->address;
+        //Actualizar el historial médico desde el request donde viene el medical_history
+        $medical_history = MedicalHistory::where('patient_id', $patient->id)->first();
+        if (!$medical_history) {
+            $medical_history = new MedicalHistory();
+            $medical_history->patient_id = $patient->id;
+        }
+        $medical_history->age = $request->medical_history['age'];
+        $medical_history->gender = $request->medical_history['gender'];
+        $medical_history->height = $request->medical_history['height'];
+        $medical_history->weight = $request->medical_history['weight'];
+        $medical_history->blood_type = $request->medical_history['blood_type'];
+        $medical_history->allergies = $request->medical_history['allergies'];
+        $medical_history->medications = $request->medical_history['medications'];
         $patient->save();
+        $medical_history->save();
 
-        return response()->json($patient);
+        return response()->json([$patient, 'status' => 200, 'message' => 'Patient updated successfully']);
     }
 
     /**

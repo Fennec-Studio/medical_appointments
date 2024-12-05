@@ -31,8 +31,10 @@ class AppointmentController extends Controller
         $request->merge(['patient_id' => $patient->id]);
         $request->merge(['doctor_id' => $doctor->id]);
         $appointment = Appointment::create($request->all());
-        return response()->json($appointment);
-
+        return response()->json([
+            $appointment,
+            'status' => 200
+        ]);
     }
 
     public function show($id) {

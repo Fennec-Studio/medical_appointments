@@ -60,7 +60,7 @@ class DoctorController extends Controller
         $doctor->phone = $request->phone;
         $doctor->license = $request->license;
         $doctor->save();
-        return response()->json($doctor);
+        return response()->json([$doctor, 'status' => 200, 'message' => 'Doctor updated successfully']);
     }
 
     public function destroy($id) {

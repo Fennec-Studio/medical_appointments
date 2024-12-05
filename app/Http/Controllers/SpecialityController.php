@@ -37,7 +37,10 @@ class SpecialityController extends Controller
         $speciality = Speciality::find($id);
         $speciality->name = $request->name;
         $speciality->save();
-        return response()->json($speciality);
+        return response()->json([
+            $speciality,
+            'status' => 200
+        ]);
     }
 
     public function destroy($id)
